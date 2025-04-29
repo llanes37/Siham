@@ -94,12 +94,12 @@ class Estudiante extends Persona {
         this.curso = curso;
     }
 
-    // * Getter y Setter
-    public String getCurso() {
-        return curso;
-    }
+  
 
     public void setCurso(String curso) {
+        this.curso = curso;
+    }
+    public void getCurso(String curso) {
         this.curso = curso;
     }
 
@@ -110,12 +110,16 @@ class Estudiante extends Persona {
         System.out.println("Curso: " + curso);
 
         // * Estructura de control switch
+
         switch (curso) {
             case "Matemáticas":
                 System.out.println("📚 Estudiante de Matemáticas.");
                 break;
             case "Historia":
                 System.out.println("📖 Estudiante de Historia.");
+                break;
+            case "java":
+                System.out.println("📖 Estudiante de java.");
                 break;
             case "Física":
                 System.out.println("🔬 Estudiante de Física.");
@@ -157,7 +161,8 @@ class Profesor extends Persona {
 }
 
 // ****************************************************************************************
-// ********************* CLASE PRINCIPAL **************************************************
+// ********************* CLASE PRINCIPAL
+// **************************************************
 // ****************************************************************************************
 
 /**
@@ -170,11 +175,12 @@ public class UT3_POO_GestionAlumnos {
 
         // ! Lista de estudiantes
         ArrayList<Estudiante> estudiantes = new ArrayList<>();
-
+       
         // ! Agregamos estudiantes
         estudiantes.add(new Estudiante("Juan", 20, "Matemáticas"));
         estudiantes.add(new Estudiante("María", 22, "Historia"));
         estudiantes.add(new Estudiante("Carlos", 19, "Física"));
+        estudiantes.add(new Estudiante("siham", 19, "Física"));
 
         // ! Mostramos información de los estudiantes
         System.out.println("\n📋 Lista de Estudiantes:");
@@ -188,7 +194,8 @@ public class UT3_POO_GestionAlumnos {
         do {
             System.out.print("Nombre: ");
             String nombre = scanner.next();
-            if (nombre.equalsIgnoreCase("salir")) break;
+            if (nombre.equalsIgnoreCase("salir"))
+                break;
 
             System.out.print("Edad: ");
             int edad = scanner.nextInt();
