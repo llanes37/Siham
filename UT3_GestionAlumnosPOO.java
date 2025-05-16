@@ -90,7 +90,12 @@ class AlumnoErasmus extends Alumno {
 // ==================================================================
 class ClaseGrupo {
     private ArrayList<Alumno> listaAlumnos = new ArrayList<>();
-
+// 👉 Añade directamente un alumno presencial desde datos básicos
+public void agregarAlumno(String nombre, int edad, String curso, String aula) {
+    Alumno nuevo = new AlumnoPresencial(nombre, edad, curso, aula);
+    listaAlumnos.add(nuevo);
+    System.out.println("✅ Alumno agregado (por nombre): " + nombre);
+}
     public void agregarAlumno(Alumno alumno) {
         listaAlumnos.add(alumno);
         System.out.println("✅ Alumno agregado: " + alumno.getNombre() + "edad " + alumno.getEdad());
@@ -114,7 +119,14 @@ public void borrarAlumnoObjeto(Alumno alumno) {
     listaAlumnos.remove(alumno);
    
     }
-
+public void buscarAlumnoPorObjeto(Alumno alumno) {
+    if (listaAlumnos.contains(alumno)) {
+        System.out.println("🔍 Alumno encontrado por objeto:");
+        alumno.mostrarInformacion();
+    } else {
+        System.out.println("❌ Ese alumno no está en el grupo.");
+    }
+}
     public void buscarAlumnoPorNombre(String nombre) {
         boolean encontrado = false;
         for (Alumno a : listaAlumnos) {
@@ -130,6 +142,25 @@ public void borrarAlumnoObjeto(Alumno alumno) {
         }
     }
 }
+// 🧠 MÉTODO: mostrarSoloErasmus()
+// Muestra únicamente los alumnos que son de tipo AlumnoErasmus usando instanceof
+// public void mostrarSoloErasmus() { ... }
+
+// 🧠 MÉTODO: mostrarPorCurso(String curso)
+// Muestra los alumnos que estén matriculados en un curso concreto
+// public void mostrarPorCurso(String curso) { ... }
+
+// 🧠 MÉTODO: contarAlumnosPorTipo()
+// Cuenta cuántos alumnos hay de cada tipo: presencial, online, erasmus
+// public void contarAlumnosPorTipo() { ... }
+
+// 🧠 MÉTODO: ordenarPorNombre()
+// Ordena la lista de alumnos alfabéticamente por nombre
+// public void ordenarPorNombre() { ... }
+
+// 🧠 MÉTODO: existeAlumno(String nombre)
+// Devuelve true o false si existe un alumno con ese nombre
+// public boolean existeAlumno(String nombre) { ... }
 
 // ==================================================================
 // 4. CLASE MAIN
@@ -159,7 +190,11 @@ public class UT3_GestionAlumnosPOO {
             ║ 0. Salir                             ║
             ╚══════════════════════════════════════╝
             """);
-
+/* ║ 5. Buscar alumno por nombre          ║
+║ 6. Mostrar solo alumnos Erasmus      ║
+║ 7. Mostrar alumnos por curso         ║
+║ 8. Contar alumnos por tipo           ║
+║ 9. Ordenar alumnos por nombre        ║ */
             System.out.print("Elige opción: ");
             opcion = sc.nextInt();
             sc.nextLine(); // limpiar buffer
@@ -176,7 +211,7 @@ public class UT3_GestionAlumnosPOO {
                         System.out.println("⚠️ Los alumnos de prueba ya fueron añadidos.");
                     }
                 }
-                
+
                 case 2 -> {
                     grupo.borrarAlumnoObjeto(franz);  // solo de ejemplo
                 }
@@ -186,6 +221,12 @@ public class UT3_GestionAlumnosPOO {
                     grupo.borrarAlumno(nombre);
                 }
                 case 4 -> {
+                    grupo.mostrarAlumnos();
+                }
+                 case 5 -> {
+                    grupo.buscarAlumnoPorNombre("Lucía Martínez");
+                }
+                 case 6 -> {
                     grupo.mostrarAlumnos();
                 }
                 case 0 -> System.out.println("👋 Saliendo...");
