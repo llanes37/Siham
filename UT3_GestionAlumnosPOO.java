@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-
+import java.util.Scanner;
 // ==================================================================
 // 1. CLASE ABSTRACTA BASE - Alumno
 // ==================================================================
@@ -91,9 +91,9 @@ class AlumnoErasmus extends Alumno {
 class ClaseGrupo {
     private ArrayList<Alumno> listaAlumnos = new ArrayList<>();
 
-    public void agregarAlumno(Alumno a) {
-        listaAlumnos.add(a);
-        System.out.println("✅ Alumno agregado: " + a.getNombre());
+    public void agregarAlumno(Alumno alumno) {
+        listaAlumnos.add(alumno);
+        System.out.println("✅ Alumno agregado: " + alumno.getNombre() + "edad " + alumno.getEdad());
     }
 
     public void mostrarAlumnos() {
@@ -105,6 +105,14 @@ class ClaseGrupo {
                 a.mostrarInformacion();
             }
         }
+    }
+public void borrarAlumno(String nombre) {
+    listaAlumnos.removeIf(a -> a.getNombre().equalsIgnoreCase(nombre));
+    System.out.println("🗑️ Se ha intentado borrar el alumno con nombre: " + nombre);
+}
+public void borrarAlumnoObjeto(Alumno alumno) {
+    listaAlumnos.remove(alumno);
+   
     }
 
     public void buscarAlumnoPorNombre(String nombre) {
@@ -129,19 +137,63 @@ class ClaseGrupo {
 public class UT3_GestionAlumnosPOO {
     public static void main(String[] args) {
         ClaseGrupo grupo = new ClaseGrupo();
+        Scanner sc = new Scanner(System.in);
 
-        Alumno a1 = new AlumnoPresencial("Carlos Ruiz", 20, "Programación", "Aula 101");
-        Alumno a2 = new AlumnoOnline("Lucía Martínez", 22, "Diseño Web", "Zoom");
-        Alumno a3 = new AlumnoErasmus("Franz Müller", 21, "Redes", "Alemania");
+        // ✅ Datos de prueba (puedes comentarlos si no los quieres fijos)
+        Alumno carlos = new AlumnoPresencial("Carlos Ruiz", 20, "Programación", "Aula 101");
+        Alumno lucia = new AlumnoOnline("Lucía Martínez", 22, "Diseño Web", "Zoom");
+        Alumno franz = new AlumnoErasmus("Franz Müller", 21, "Redes", "Alemania");
 
-        grupo.agregarAlumno(a1);
-        grupo.agregarAlumno(a2);
-        grupo.agregarAlumno(a3);
+        int opcion;
+        boolean datosCargados = false;
 
-        System.out.println("\n📚 MOSTRAR TODOS LOS ALUMNOS:");
-        grupo.mostrarAlumnos();
+        do {
+            System.out.println("""
+            ╔══════════════════════════════════════╗
+            ║         MENÚ - GESTIÓN ALUMNOS       ║
+            ╠══════════════════════════════════════╣
+            ║ 1. Agregar alumnos de prueba         ║
+            ║ 2. Borrar alumno (por objeto)        ║
+            ║ 3. Borrar alumno (por nombre)        ║
+            ║ 4. Mostrar todos los alumnos         ║
+            ║ 0. Salir                             ║
+            ╚══════════════════════════════════════╝
+            """);
 
-        System.out.println("\n🔎 BUSCAR ALUMNO POR NOMBRE:");
-        grupo.buscarAlumnoPorNombre("Lucía Martínez");
+            System.out.print("Elige opción: ");
+            opcion = sc.nextInt();
+            sc.nextLine(); // limpiar buffer
+
+            switch (opcion) {
+                case 1 -> {
+                    if (!datosCargados) {
+                        grupo.agregarAlumno(carlos);
+                        grupo.agregarAlumno(lucia);
+                        grupo.agregarAlumno(franz);
+                        datosCargados = true;
+                        System.out.println("✅ Alumnos de prueba añadidos.");
+                    } else {
+                        System.out.println("⚠️ Los alumnos de prueba ya fueron añadidos.");
+                    }
+                }
+                
+                case 2 -> {
+                    grupo.borrarAlumnoObjeto(franz);  // solo de ejemplo
+                }
+                case 3 -> {
+                    System.out.print("Introduce el nombre del alumno a borrar: ");
+                    String nombre = sc.nextLine();
+                    grupo.borrarAlumno(nombre);
+                }
+                case 4 -> {
+                    grupo.mostrarAlumnos();
+                }
+                case 0 -> System.out.println("👋 Saliendo...");
+                default -> System.out.println("❌ Opción no válida");
+            }
+
+        } while (opcion != 0);
+
+        sc.close();
     }
 }
