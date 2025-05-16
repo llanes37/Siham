@@ -77,9 +77,11 @@ class Alumno {
     // MÉTODOS A IMPLEMENTAR POR LOS ALUMNOS:
 
     public static void añadirAlumno(Scanner sc, Map<String, Curso> cursosDisponibles) {
+      
         // TODO: Pedir datos al usuario (nombre, email, código de curso)
         // TODO: Validar que el código de curso exista en el mapa
         // TODO: Crear alumno y añadir a la lista
+        
     }
 
     public static void buscarAlumnoPorEmail(Scanner sc) {

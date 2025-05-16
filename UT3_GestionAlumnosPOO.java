@@ -1,152 +1,147 @@
-/**
- * 📚 Examen Práctico - 2ª Evaluación 2024/2025
- * 🎯 OBJETIVO: Desarrollar un sistema de gestión de alumnos en una clase
- * 🧠 NIVEL: Programación Orientada a Objetos (POO) - Herencia, Polimorfismo, Encapsulación
- * 🛠️ HERRAMIENTA: IntelliJ IDEA (puedes usar Generate ⌘N para getters, setters y constructores)
- *
- * ─────────────────────────────────────────────
- * 📝 ENUNCIADO GENERAL:
- * Se desea crear una aplicación que permita gestionar alumnos de distintos tipos dentro de una clase.
- * Todos los alumnos tienen nombre, edad y curso. Según el tipo de alumno, se añadirá información extra.
- *
- * ➕ CLASE BASE (abstracta): Alumno
- *     - Atributos: nombre (String), edad (int), curso (String)
- *     - Constructor, getters y setters
- *     - Método abstracto mostrarInformacion()
- *     - Método toString()
- *
- * ➕ CLASES HIJAS:
- *     - AlumnoPresencial → atributo: aula (String)
- *     - AlumnoOnline → atributo: plataforma (String)
- *     - AlumnoErasmus → atributo: paisOrigen (String)
- *
- * ➕ CLASE ClaseGrupo:
- *     - Lista de alumnos
- *     - Métodos: agregarAlumno(), mostrarAlumnos(), buscarAlumnoPorNombre()
- *
- * ✅ CLASE MAIN: pruebas manuales sin menú.
- *
- * ✔ Se valorará el uso correcto de POO, buenas prácticas, comentarios y limpieza del código.
- */
-
 import java.util.ArrayList;
 
 // ==================================================================
 // 1. CLASE ABSTRACTA BASE - Alumno
-// ------------------------------------------------------------------
-// @blue Esta clase será la base para todos los tipos de alumnos
-// @green Encapsula atributos comunes: nombre, edad y curso
-// @red ¡RELLENA TÚ ESTE CÓDIGO! Usa ⌘N (Mac) o Alt + Insert (Win) para ayudarte
 // ==================================================================
 abstract class Alumno {
-    // @cyan Atributos comunes: nombre, edad, curso
-    // private String nombre;
-    // ...
+    private String nombre;
+    private int edad;
+    private String curso;
 
-    // @green Constructor
-    // public Alumno(...) { ... }
+    public Alumno(String nombre, int edad, String curso) {
+        this.nombre = nombre;
+        this.edad = edad;
+        this.curso = curso;
+    }
 
-    // @yellow Getters y Setters
-    // ...
+    public String getNombre() { return nombre; }
+    public int getEdad() { return edad; }
+    public String getCurso() { return curso; }
 
-    // @blue Método abstracto mostrarInformacion()
-    // public abstract void mostrarInformacion();
+    public void setNombre(String nombre) { this.nombre = nombre; }
+    public void setEdad(int edad) { this.edad = edad; }
+    public void setCurso(String curso) { this.curso = curso; }
 
-    // @purple Método toString() que muestre info básica
-    // public String toString() { ... }
-}
+    public abstract void mostrarInformacion();
 
-// ==================================================================
-// 2. CLASES HIJAS - AlumnoPresencial, AlumnoOnline, AlumnoErasmus
-// ------------------------------------------------------------------
-// @blue Cada clase hereda de Alumno y añade un campo específico
-// @green Implementan mostrarInformacion()
-// ==================================================================
-
-class AlumnoPresencial extends Alumno {
-    // @cyan Atributo específico: aula
-    // ...
-
-    // @green Constructor que llame al super()
-    // ...
-
-    // @blue Implementación de mostrarInformacion()
-    // ...
-}
-
-class AlumnoOnline extends Alumno {
-    // @cyan Atributo específico: plataforma
-    // ...
-
-    // @green Constructor que llame al super()
-    // ...
-
-    // @blue Implementación de mostrarInformacion()
-    // ...
-}
-
-class AlumnoErasmus extends Alumno {
-    // @cyan Atributo específico: paisOrigen
-    // ...
-
-    // @green Constructor que llame al super()
-    // ...
-
-    // @blue Implementación de mostrarInformacion()
-    // ...
-}
-
-// ==================================================================
-// 3. CLASE ClaseGrupo - gestión del grupo de alumnos
-// ------------------------------------------------------------------
-// @blue Contiene una lista de alumnos
-// @green Métodos: agregarAlumno(), mostrarAlumnos(), buscarAlumnoPorNombre()
-// ==================================================================
-
-class ClaseGrupo {
-    // @cyan Atributo: lista de alumnos
-    // private ArrayList<Alumno> listaAlumnos = new ArrayList<>();
-
-    // @green Método agregarAlumno()
-    // public void agregarAlumno(Alumno a) { ... }
-
-    // @yellow Método mostrarAlumnos()
-    // public void mostrarAlumnos() { ... }
-
-    // @purple Método buscarAlumnoPorNombre(String nombre)
-    // public void buscarAlumnoPorNombre(String nombre) { ... }
-}
-
-// ==================================================================
-// 4. CLASE MAIN - pruebas manuales
-// ------------------------------------------------------------------
-// @blue Aquí puedes crear alumnos, agregarlos al grupo y mostrarlos
-// @red No hace falta menú, solo pruebas directas
-// ==================================================================
-
-public class UT3_GestionAlumnosPOO {
-    public static void main(String[] args) {
-        // @green Crear una instancia de ClaseGrupo
-        // ClaseGrupo grupo = new ClaseGrupo();
-
-        // @yellow Crear varios alumnos y agregarlos
-        // Alumno a1 = new AlumnoPresencial(...);
-        // grupo.agregarAlumno(a1);
-
-        // @purple Mostrar todos los alumnos
-        // grupo.mostrarAlumnos();
-
-        // @blue Buscar alumno por nombre
-        // grupo.buscarAlumnoPorNombre("María");
+    @Override
+    public String toString() {
+        return "👤 " + nombre + " | Edad: " + edad + " | Curso: " + curso;
     }
 }
 
-/***********************************************
- * ! EJERCICIOS OPCIONALES PARA PRACTICAR 🚀 *
- ***********************************************
- * 1️⃣ Añade una clase "AlumnoBecado" que tenga el atributo "tipoBeca"
- * 2️⃣ Permite ordenar los alumnos por nombre alfabéticamente
- * 3️⃣ Añade un método que muestre solo los alumnos de un tipo específico (por ejemplo, solo Erasmus)
- * 4️⃣ Guarda en archivo.txt la lista completa de alumnos
- * 5️⃣ Crea una clase Profesor con nombre y asignatura, y relaciónala con ClaseGrupo
- ***********************************************/
+// ==================================================================
+// 2. CLASES HIJAS
+// ==================================================================
+
+class AlumnoPresencial extends Alumno {
+    private String aula;
+
+    public AlumnoPresencial(String nombre, int edad, String curso, String aula) {
+        super(nombre, edad, curso);
+        this.aula = aula;
+    }
+
+    public String getAula() { return aula; }
+    public void setAula(String aula) { this.aula = aula; }
+
+    @Override
+    public void mostrarInformacion() {
+        System.out.println(toString() + " | Tipo: Presencial | Aula: " + aula);
+    }
+}
+
+class AlumnoOnline extends Alumno {
+    private String plataforma;
+
+    public AlumnoOnline(String nombre, int edad, String curso, String plataforma) {
+        super(nombre, edad, curso);
+        this.plataforma = plataforma;
+    }
+
+    public String getPlataforma() { return plataforma; }
+    public void setPlataforma(String plataforma) { this.plataforma = plataforma; }
+
+    @Override
+    public void mostrarInformacion() {
+        System.out.println(toString() + " | Tipo: Online | Plataforma: " + plataforma);
+    }
+}
+
+class AlumnoErasmus extends Alumno {
+    private String paisOrigen;
+
+    public AlumnoErasmus(String nombre, int edad, String curso, String paisOrigen) {
+        super(nombre, edad, curso);
+        this.paisOrigen = paisOrigen;
+    }
+
+    public String getPaisOrigen() { return paisOrigen; }
+    public void setPaisOrigen(String paisOrigen) { this.paisOrigen = paisOrigen; }
+
+    @Override
+    public void mostrarInformacion() {
+        System.out.println(toString() + " | Tipo: Erasmus | País: " + paisOrigen);
+    }
+}
+
+// ==================================================================
+// 3. CLASE ClaseGrupo
+// ==================================================================
+class ClaseGrupo {
+    private ArrayList<Alumno> listaAlumnos = new ArrayList<>();
+
+    public void agregarAlumno(Alumno a) {
+        listaAlumnos.add(a);
+        System.out.println("✅ Alumno agregado: " + a.getNombre());
+    }
+
+    public void mostrarAlumnos() {
+        if (listaAlumnos.isEmpty()) {
+            System.out.println("📭 No hay alumnos en el grupo.");
+        } else {
+            System.out.println("📋 Lista de alumnos:");
+            for (Alumno a : listaAlumnos) {
+                a.mostrarInformacion();
+            }
+        }
+    }
+
+    public void buscarAlumnoPorNombre(String nombre) {
+        boolean encontrado = false;
+        for (Alumno a : listaAlumnos) {
+            if (a.getNombre().equalsIgnoreCase(nombre)) {
+                System.out.println("🔍 Alumno encontrado:");
+                a.mostrarInformacion();
+                encontrado = true;
+                break;
+            }
+        }
+        if (!encontrado) {
+            System.out.println("❌ No se encontró el alumno con nombre: " + nombre);
+        }
+    }
+}
+
+// ==================================================================
+// 4. CLASE MAIN
+// ==================================================================
+public class UT3_GestionAlumnosPOO {
+    public static void main(String[] args) {
+        ClaseGrupo grupo = new ClaseGrupo();
+
+        Alumno a1 = new AlumnoPresencial("Carlos Ruiz", 20, "Programación", "Aula 101");
+        Alumno a2 = new AlumnoOnline("Lucía Martínez", 22, "Diseño Web", "Zoom");
+        Alumno a3 = new AlumnoErasmus("Franz Müller", 21, "Redes", "Alemania");
+
+        grupo.agregarAlumno(a1);
+        grupo.agregarAlumno(a2);
+        grupo.agregarAlumno(a3);
+
+        System.out.println("\n📚 MOSTRAR TODOS LOS ALUMNOS:");
+        grupo.mostrarAlumnos();
+
+        System.out.println("\n🔎 BUSCAR ALUMNO POR NOMBRE:");
+        grupo.buscarAlumnoPorNombre("Lucía Martínez");
+    }
+}
