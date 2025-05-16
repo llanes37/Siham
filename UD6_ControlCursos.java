@@ -38,7 +38,6 @@ import java.util.function.Function;
 class Curso {
     private String nombre;                          // 📌 Nombre del curso
     private Map<String, Double> notas;              // 📌 Alumno -> Nota final
-
     public Curso(String nombre) {
         this.nombre = nombre;                       // ✅ Inicializamos nombre
         this.notas = new HashMap<>();               // ✅ Creamos mapa vacío
@@ -48,10 +47,14 @@ class Curso {
         notas.put(alumno, nota);                    // ✅ Añadimos o actualizamos nota
     }
 
-    public double calcularPromedio() {
-        // ✅ Usamos Stream para calcular la media de las notas
-        return notas.values().stream().mapToDouble(Double::doubleValue).average().orElse(0);
+  public double calcularPromedio() {
+    if (notas.isEmpty()) return 0; // Si no hay notas, el promedio es 0
+    double suma = 0;
+    for (double nota : notas.values()) {
+        suma += nota; // Acumula cada nota
     }
+    return suma / notas.size(); // Divide la suma entre el número de notas
+}
 
     public String getNombre() {
         return nombre;
@@ -125,15 +128,15 @@ class Universidad {
         profesores.values().forEach(System.out::println); // ✅ Imprimimos todos
     }
 
-    public void calcularPromedios(Function<Map<String, Double>, Double> funcionPromedio) {
+   /*  public void calcularPromedios(Function<Map<String, Double>, Double> funcionPromedio) {
         for (Curso c : todosLosCursos) {
             double promedio = funcionPromedio.apply(c.getNotas()); // ✅ Aplicamos lambda
             System.out.println("📊 Promedio de " + c.getNombre() + ": " + promedio);
         }
-    }
+    } */
 
-    public void añadirCursoGlobal(Curso c) {
-        todosLosCursos.add(c);                      // ✅ Añadimos curso global
+    public void añadirCursoGlobal(Curso curso) {
+        todosLosCursos.add(curso);                      // ✅ Añadimos curso global
     }
 
     public void guardarEnArchivo(String archivo) {
@@ -199,6 +202,7 @@ public class UD6_ControlCursos {
                     System.out.print("Nombre del curso: ");
                     String nombreC = sc.nextLine();
                     Curso curso = new Curso(nombreC);
+                    Curso java = new Curso(nombreC);
                     profe.asignarCurso(curso);
                     uni.añadirCursoGlobal(curso);
 
